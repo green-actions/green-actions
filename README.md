@@ -19,7 +19,7 @@ computer too much.
 Maybe our smaller computer could also be used to check how much anyone is
 using their shared computer, whether or not they are students?
 
-(Can use [this page](https://xkcd.com/simplewriter/) to check that only top
+(Can use [xkcd's simple writer](https://xkcd.com/simplewriter/) to check that only top
 1000 words have been used.)
 
 ## Contributors
