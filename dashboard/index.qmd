@@ -23,7 +23,28 @@ actions_data <- read.csv("../data/green-actions-workflows.csv")
 ```
 
 ```{r}
+#| label: calculate statistics
+#| message: false
+
 mean_duration <- mean(actions_data$duration)
+duration_quant <- quantile(actions_data$duration)
+branches <- unique(actions_data$branch)
+
+# Calculate the quartiles and colors for each branch
+get_branch_stats <- function(branch_name){
+
+}
+
+branch_first <- actions_data |>
+    filter(branch==branches[1])
+branch_second <- actions_data |>
+    filter(branch==branches[2])
+branch_third <- actions_data |>
+    filter(branch==branches[3])
+p_firstblock <- "warning"
+p_secondblock <- "danger"
+p_thirdblock <- "primary"
+
 ```
 
 ## Row {height="20%"}
@@ -33,7 +54,7 @@ mean_duration <- mean(actions_data$duration)
 #| title: "Total time"
 list(
   icon = "clock",
-  color = "primary",
+  color = p_firstblock,
   value = mean_duration
 )
 
@@ -45,7 +66,7 @@ list(
 #| title: "Time for branch X"
 list(
   icon = "clock",
-  color = "danger",
+  color = p_secondblock,
   value = mean_duration
 )
 
@@ -56,12 +77,12 @@ list(
 #| title: "Time for branch Y"
 list(
   icon = "clock",
-  color = "warning",
+  color = p_thirdblock,
   value = mean_duration
 )
 ```
 
-## Row {height="40%"}
+## Row {height="80%"}
 
 ```{r}
 # Put in the bubbleplot
