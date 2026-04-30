@@ -79,6 +79,7 @@ list(
 ## Row {height="80%"}
 
 ```{r}
+#| title: Run duration for different branches
 # Put in the bubbleplot
 
 workflow_start_time <- as.POSIXct(actions_data$workflow_start_time, format = "%H:%M:%S")
