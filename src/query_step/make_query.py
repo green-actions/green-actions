@@ -4,6 +4,7 @@ import csv
 import yaml
 import pathlib
 
+
 def get_github_token(secrets_file):
     ### Get github token from secrets file
     github_token = ""  # noqa: F841
