@@ -99,3 +99,8 @@ repos:
       - id: zizmor
         args:
           - --fix=safe
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.8
+    hooks:
+      - id: ruff-check
+      - id: ruff-format
