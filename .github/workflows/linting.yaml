@@ -1,0 +1,23 @@
+---
+name: Linting
+
+on:
+  push:
+    branches:
+      - main
+      - renovate/**
+  pull_request:
+
+jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      # yamllint disable-line rule:line-length
+      - uses: paddyroddy/.github/actions/linting@1d0c1c7ee84f9247bcc05de363808eda0d1243ea # v0
+        with:
+          pre-commit-config: ./.pre-commit-config.yaml
+
+      # yamllint disable-line rule:line-length
+      - uses: paddyroddy/.github/actions/vale@1d0c1c7ee84f9247bcc05de363808eda0d1243ea # v0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
