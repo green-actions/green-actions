@@ -1,8 +1,9 @@
+---
 project:
   type: website
 
 website:
-  title: "Estimating your CI usage"
+  title: Estimating your CI usage
   navbar:
     left:
       - href: index.qmd
