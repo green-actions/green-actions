@@ -1,0 +1,24 @@
+---
+name: Dummy
+
+on:
+  push:
+    branches:
+      - main
+      - renovate/**
+  pull_request:
+
+jobs:
+  test:
+    name: Dummy ${{ matrix.os }}
+    permissions:
+      contents: read
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+    steps:
+      - run: echo "Hi Duncan!"
