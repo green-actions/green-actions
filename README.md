@@ -63,6 +63,7 @@ The visualisation will automatically happen on GitHub pages when the data is upd
     </tr>
   </tbody>
 </table>
+
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
 
