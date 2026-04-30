@@ -7,14 +7,16 @@ import pathlib
 
 def get_github_token(secrets_file):
     ### Get github token from secrets file
-    github_token = ""  # noqa: F841
 
     with pathlib.Path(secrets_file).open() as f:
-        file_contents = yaml.safe_load(f)
-        if "github_token" in file_contents.keys():
-            return file_contents["github_token"]
+        file_contents = yaml.safe_load(f) or {}
+        github_token = file_contents.get("github_token")
+        if github_token:
+            return github_token
 
-
+    raise ValueError(
+        f"Missing required 'github_token' in secrets file: {secrets_file}"
+    )
 def get_auth_headers():
     ### Get the authorisation headers required for GitHub access
 
@@ -54,6 +56,9 @@ def get_workflow_runtime_info(org: str, repo: str, workflow_run: str):
 def make_csv_output(data):
     ### Output the data to CSV format
 
+    if not data:
+        print("No workflow timing data available; skipping CSV output.")
+        return
     with open("output.csv", "w", newline="") as f:
         w = csv.DictWriter(f, list(data[0].keys()))
         w.writeheader()
