@@ -23,7 +23,7 @@ def get_auth_headers():
 def get_list_of_workflows(org: str, repo: str):
     ### Gets a list of workflows from the given repo
 
- 
+
     url = f"https://api.github.com/repos/{org}/{repo}/actions/runs"
 
     kwargs = get_auth_headers()
@@ -38,9 +38,9 @@ def get_one_workflow_info(org: str, repo: str, workflow_run: str):
 
 def get_workflow_runtime_info(org: str, repo: str, workflow_run: str):
     ### Extract the timing information from a single workflow
-    
+
     url = f"https://api.github.com/repos/{org}/{repo}/actions/runs/{workflow_run}/timing"
-    
+
     kwargs = get_auth_headers()
 
     return requests.get(url, **kwargs)
@@ -52,7 +52,7 @@ def make_csv_output(data, out_name):
         w = csv.DictWriter(f,list(data[0].keys()))
         w.writeheader()
         w.writerows(data)
-        
+
 
 def run_one_repo(org_name: str, repo_name: str, output_name: str):
 
@@ -65,7 +65,7 @@ def run_one_repo(org_name: str, repo_name: str, output_name: str):
     wf_data = workflows.json()
 
     print(f"Running over {len(wf_data['workflow_runs'])} workflows")
-    
+
     # Loop over each workflow
     for wf_run in wf_data["workflow_runs"]:
         # A temp dict to store this workflow's information
@@ -88,7 +88,7 @@ def run_one_repo(org_name: str, repo_name: str, output_name: str):
     # Turn this into an output
     make_csv_output(output_dict, output_name)
 
-        
+
 if __name__ == "__main__":
 
     # The org and repo names to query
