@@ -8,6 +8,33 @@
   "commitConvention": "angular",
   "contributors": [
     {
+      "login": "paddyroddy",
+      "name": "Patrick J. Roddy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15052188?v=4",
+      "profile": "https://paddyroddy.github.io",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "dleggat",
+      "name": "Duncan Leggat",
+      "avatar_url": "https://avatars.githubusercontent.com/u/133978460?v=4",
+      "profile": "https://github.com/dleggat",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "jyoti-bhogal",
+      "name": "Jyoti Bhogal",
+      "avatar_url": "https://avatars.githubusercontent.com/u/68017009?v=4",
+      "profile": "https://github.com/jyoti-bhogal",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
       "login": "sjavis",
       "name": "Sam Avis",
       "avatar_url": "https://avatars.githubusercontent.com/u/40611736?v=4",
