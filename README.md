@@ -9,7 +9,7 @@ This repository has two components, a data query and data visualiser.
 To us it you'll need to clone the repository, have python and a token (if the repository to analyse is private, the token will need to be associated with that repository).
 
 ```bash
-python query_step/make_query.py
+python src/query_step/make_query.py
 ```
 
 At the moment this will analyse this same repository.
