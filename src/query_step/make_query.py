@@ -51,11 +51,12 @@ def get_workflow_runtime_info(org: str, repo: str, workflow_run: str):
 
     return requests.get(url, **kwargs)
 
+
 def make_csv_output(data, out_name):
     ### Output the data to CSV format
 
-    with open(out_name, "w", newline='') as f:
-        w = csv.DictWriter(f,list(data[0].keys()))
+    with open(out_name, "w", newline="") as f:
+        w = csv.DictWriter(f, list(data[0].keys()))
         w.writeheader()
         w.writerows(data)
 
@@ -82,21 +83,24 @@ def run_one_repo(org_name: str, repo_name: str, output_name: str):
         tmp_output["start_time"] = wf_run["run_started_at"]
 
         # Get timing info for this workflow
-        timing_info = get_workflow_runtime_info(org_name,repo_name,wf_run["id"]).json()
+        timing_info = get_workflow_runtime_info(
+            org_name, repo_name, wf_run["id"]
+        ).json()
 
         # If there is timing info, save it to the dictionary and append that to our output
         if "run_duration_ms" in timing_info.keys():
             tmp_output["duration"] = timing_info["run_duration_ms"]
             output_dict.append(tmp_output)
         else:
-            print(f"No timing information available for {wf_run['name']} run number {wf_run['id']}")
+            print(
+                f"No timing information available for {wf_run['name']} run number {wf_run['id']}"
+            )
 
     # Turn this into an output
     make_csv_output(output_dict, output_name)
 
 
 if __name__ == "__main__":
-
     # The org and repo names to query
     org_name = "green-actions"
     repo_name = "green-actions"
