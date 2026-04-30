@@ -23,7 +23,7 @@ def get_auth_headers():
 def get_list_of_workflows(org: str, repo: str):
     ### Gets a list of workflows from the given repo
 
-
+ 
     url = f"https://api.github.com/repos/{org}/{repo}/actions/runs"
 
     kwargs = get_auth_headers()
