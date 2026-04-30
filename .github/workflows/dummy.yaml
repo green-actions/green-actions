@@ -2,11 +2,7 @@
 name: Dummy
 
 on:
-  push:
-    branches:
-      - main
-      - renovate/**
-  pull_request:
+  workflow_dispatch: 
 
 jobs:
   test:
