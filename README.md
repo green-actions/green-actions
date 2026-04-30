@@ -4,8 +4,6 @@ A tool to compute GitHub Actions usage
 
 # Explain using top 1000 words only
 
-Can use [this page](https://xkcd.com/simplewriter/) to check that only top 1000 words have been used.
-
 Students use the big shared computer too much.
 
 Some students use it more than others and this is not good to the other students, because then they cannot use the big shared computer when they need it.
@@ -16,6 +14,7 @@ This will help the students know that they are using the big shared computer too
 
 Maybe our smaller computer could also be used to check how much anyone is using their shared computer, whether or not they are students?
 
+(Can use [this page](https://xkcd.com/simplewriter/) to check that only top 1000 words have been used.)
 
 
 ## Contributors
