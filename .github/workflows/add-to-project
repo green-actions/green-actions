@@ -1,0 +1,17 @@
+---
+name: Add issues to project board
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  add-issue-to-project:
+    permissions: {}
+    runs-on: ubuntu-slim
+    steps:
+      - uses: UCL-MIRSG/.github/actions/add-to-project@48c110143818699bc1aeee69a6296d00550fd950 # v0
+        with:
+          app-id: ${{ vars.PROJECT_APP_ID }}
+          app-pem: ${{ secrets.PROJECT_APP_PEM }} # zizmor: ignore[secrets-outside-env]
