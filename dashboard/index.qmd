@@ -4,7 +4,6 @@ format:
     dashboard:
         nav-buttons: [github]
         github: https://github.com/green-actions
-output-dir: docs
 theme: minty
 ---
 
