@@ -8,6 +8,24 @@
   "commitConvention": "angular",
   "contributors": [
     {
+      "login": "paddyroddy",
+      "name": "Patrick J. Roddy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15052188?v=4",
+      "profile": "https://paddyroddy.github.io",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "dleggat",
+      "name": "Duncan Leggat",
+      "avatar_url": "https://avatars.githubusercontent.com/u/133978460?v=4",
+      "profile": "https://github.com/dleggat",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
       "login": "20DM",
       "name": "Christian Gutschow",
       "avatar_url": "https://avatars.githubusercontent.com/u/64213771?v=4",
