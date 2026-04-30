@@ -1,0 +1,32 @@
+---
+name: Deploy Quarto
+description: Deploy quarto website to GitHub Pages
+
+runs:
+  runs-on: ubuntu-slim 
+  steps:
+    - name: Checkout source
+      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      with:
+        persist-credentials: false
+
+    - name: Set up Quarto
+      # yamllint disable-line rule:line-length
+      uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b # v2
+
+    - name: Render ${{ github.ref_name }} branch
+      if: github.ref != 'refs/heads/main'
+      # yamllint disable-line rule:line-length
+      uses: quarto-dev/quarto-actions/render@8a96df13519ee81fd526f2dfca5962811136661b # v2
+      with:
+        to: html # If set, it will be equivalent to `quarto render --to html`
+        path: dashboard/docs # By default, the current working dir is used i.e `quarto render .`
+
+    - name: Publish main branch
+      if: github.ref == 'refs/heads/main'
+      # yamllint disable-line rule:line-length
+      uses: quarto-dev/quarto-actions/publish@8a96df13519ee81fd526f2dfca5962811136661b # v2
+      with:
+        target: gh-pages
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}

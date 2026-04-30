@@ -1,0 +1,72 @@
+---
+title: "Green Actions"
+format: 
+    dashboard:
+        nav-buttons: [github]
+        github: https://github.com/green-actions
+output-dir: docs
+theme: minty
+---
+
+```{r setup, include = FALSE}
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+#| label: load-data
+#| message: false
+
+
+### Read in data here
+actions_data <- read.csv("../data/mock_data.csv")
+actions_data
+```
+
+```{r}
+mean_duration <- mean(actions_data$duration)
+```
+
+## Row {height="20%"}
+
+```{r}
+#| content: valuebox
+#| title: "Total time"
+list(
+  icon = "clock",
+  color = "primary",
+  value = mean_duration
+)
+
+```
+
+
+```{r}
+#| content: valuebox
+#| title: "Time for branch X"
+list(
+  icon = "clock",
+  color = "danger",
+  value = mean_duration
+)
+
+```
+
+```{r}
+#| content: valuebox
+#| title: "Time for branch Y"
+list(
+  icon = "clock",
+  color = "warning",
+  value = mean_duration
+)
+```
+
+## Row {height="40%"}
+
+```{r}
+# Put in the bubbleplot
+
+p <- ggplot2::ggplot(actions_data) + ggplot2::geom_point(aes(x = workflow_start_time, y = workflow_name, size = duration, color = branch_name))
+p
+```
