@@ -32,6 +32,7 @@ jobs:
         uses: r-lib/actions/setup-renv@v2
         with:
           cache-version: 1
+          working-directory: dashboard
 
       - name: Render ${{ github.ref_name }} branch
         if: github.ref != 'refs/heads/main'
