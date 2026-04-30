@@ -38,9 +38,9 @@ def get_one_workflow_info(org: str, repo: str, workflow_run: str):
 
 def get_workflow_runtime_info(org: str, repo: str, workflow_run: str):
     ### Extract the timing information from a single workflow
-    
+
     url = f"https://api.github.com/repos/{org}/{repo}/actions/runs/{workflow_run}/timing"
-    
+
     kwargs = get_auth_headers()
 
     return requests.get(url, **kwargs)
@@ -52,19 +52,19 @@ def make_csv_output(data):
         w = csv.DictWriter(f,list(data[0].keys()))
         w.writeheader()
         w.writerows(data)
-        
-    
+
+
 if __name__ == "__main__":
-    
+
     auth_headers = get_auth_headers()
 
     org_name = "green-actions"
     repo_name = "green-actions"
-    
+
     workflows = get_list_of_workflows(org_name, repo_name)
 
     output_dict = []
-    
+
     wf_data = workflows.json()
     print(workflows)
     print(wf_data["total_count"])
@@ -84,4 +84,4 @@ if __name__ == "__main__":
 
     make_csv_output(output_dict)
 
-        
+
