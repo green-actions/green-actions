@@ -83,5 +83,3 @@ if __name__ == "__main__":
             print("No timing")
 
     make_csv_output(output_dict)
-
-
