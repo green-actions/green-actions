@@ -11,7 +11,7 @@ students, because then they cannot use the big shared computer when they
 need it.
 
 We have told a smaller computer to check how much each group of students
-is using the big shared computer and draw a picture to make it very clear.
+is using the big shared computer and draw a picture to make it extra clear.
 
 This will help the students know that they are using the big shared
 computer too much.
