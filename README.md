@@ -2,6 +2,27 @@
 
 A tool to compute GitHub Actions usage
 
+## Explain using top 1000 words only
+
+Students use the big shared computer too much.
+
+Some students use it more than others and this is not good to the other
+students, because then they cannot use the big shared computer when they
+need it.
+
+We have told a smaller computer to check how much each group of students
+is using the big shared computer and draw a picture to make it extra clear.
+
+This will help the students know that they are using the big shared
+computer too much.
+
+Maybe our smaller computer could also be used to check how much anyone is
+using their shared computer, whether or not they are students?
+
+(Can use [xkcd's simple writer](https://xkcd.com/simplewriter/)
+to check that only top
+1000 words have been used.)
+
 ## How to use it
 
 This repository has two components, a data query and data visualiser.
@@ -17,6 +38,7 @@ At the moment this will analyse this same repository.
 In the future, we will add the possibility to add the functionality to include new repositories.
 
 The visualisation will automatically happen on GitHub pages when the data is updated.
+
 
 
 ## Contributors
