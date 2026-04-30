@@ -1,0 +1,53 @@
+---
+name: Publish Quarto
+
+on:
+  push:
+    branches:
+      - main
+      - renovate/**
+  pull_request:
+
+jobs:
+  publish:
+    permissions:
+      contents: write
+    runs-on: ubuntu-slim
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Quarto
+        # yamllint disable-line rule:line-length
+        uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b # v2
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@9f58233a78a2a9fd874714be10f8bba627233339
+        with:
+          r-version: 4.5.1
+
+      - name: Install R Dependencies
+        uses: r-lib/actions/setup-renv@9f58233a78a2a9fd874714be10f8bba627233339
+        with:
+          cache-version: 1
+          working-directory: dashboard
+
+      - name: Render ${{ github.ref_name }} branch
+        if: github.ref != 'refs/heads/main'
+        # yamllint disable-line rule:line-length
+        uses: quarto-dev/quarto-actions/render@8a96df13519ee81fd526f2dfca5962811136661b # v2
+        with:
+          to: html
+          path: dashboard
+
+      - name: Publish main branch
+        if: github.ref == 'refs/heads/main'
+        # yamllint disable-line rule:line-length
+        uses: quarto-dev/quarto-actions/publish@8a96df13519ee81fd526f2dfca5962811136661b # v2
+        with:
+          target: gh-pages
+          path: dashboard
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
