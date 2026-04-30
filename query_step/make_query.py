@@ -45,43 +45,58 @@ def get_workflow_runtime_info(org: str, repo: str, workflow_run: str):
 
     return requests.get(url, **kwargs)
 
-def make_csv_output(data):
+def make_csv_output(data, out_name):
     ### Output the data to CSV format
 
-    with open("output.csv","w",newline='') as f:
+    with open(out_name, "w", newline='') as f:
         w = csv.DictWriter(f,list(data[0].keys()))
         w.writeheader()
         w.writerows(data)
         
-    
-if __name__ == "__main__":
-    
-    auth_headers = get_auth_headers()
 
-    org_name = "green-actions"
-    repo_name = "green-actions"
-    
+def run_one_repo(org_name: str, repo_name: str, output_name: str):
+
+    # Get the workflows that have been called in this repo
     workflows = get_list_of_workflows(org_name, repo_name)
 
+    # Collect information from issues here
     output_dict = []
-    
+
     wf_data = workflows.json()
-    print(workflows)
-    print(wf_data["total_count"])
+
+    print(f"Running over {len(wf_data['workflow_runs'])} workflows")
+    
+    # Loop over each workflow
     for wf_run in wf_data["workflow_runs"]:
+        # A temp dict to store this workflow's information
         tmp_output = {}
+        # Store base info
         tmp_output["workflow_name"] = wf_run["name"]
         tmp_output["branch"] = wf_run["head_branch"]
         tmp_output["start_time"] = wf_run["run_started_at"]
 
+        # Get timing info for this workflow
         timing_info = get_workflow_runtime_info(org_name,repo_name,wf_run["id"]).json()
 
+        # If there is timing info, save it to the dictionary and append that to our output
         if "run_duration_ms" in timing_info.keys():
             tmp_output["duration"] = timing_info["run_duration_ms"]
             output_dict.append(tmp_output)
         else:
-            print("No timing")
+            print(f"No timing information available for {wf_run['name']} run number {wf_run['id']}")
 
-    make_csv_output(output_dict)
+    # Turn this into an output
+    make_csv_output(output_dict, output_name)
 
         
+
+        
+if __name__ == "__main__":
+
+    # The org and repo names to query
+    org_name = "green-actions"
+    repo_name = "green-actions"
+
+    out_name = "test_out.csv"
+
+    run_one_repo(org_name, repo_name, out_name)
