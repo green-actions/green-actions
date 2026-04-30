@@ -14,6 +14,7 @@ A tool to compute GitHub Actions usage
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/dleggat"><img src="https://avatars.githubusercontent.com/u/133978460?v=4?s=100" width="100px;" alt="Duncan Leggat"/><br /><sub><b>Duncan Leggat</b></sub></a><br /><a href="#ideas-dleggat" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jyoti-bhogal"><img src="https://avatars.githubusercontent.com/u/68017009?v=4?s=100" width="100px;" alt="Jyoti Bhogal"/><br /><sub><b>Jyoti Bhogal</b></sub></a><br /><a href="#ideas-jyoti-bhogal" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://dpshelio.github.io"><img src="https://avatars.githubusercontent.com/u/963242?v=4?s=100" width="100px;" alt="David Pérez-Suárez"/><br /><sub><b>David Pérez-Suárez</b></sub></a><br /><a href="#ideas-dpshelio" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/sjavis"><img src="https://avatars.githubusercontent.com/u/40611736?v=4?s=100" width="100px;" alt="Sam Avis"/><br /><sub><b>Sam Avis</b></sub></a><br /><a href="#ideas-sjavis" title="Ideas, Planning, & Feedback">🤔</a></td>
     </tr>
   </tbody>
 </table>
