@@ -42,6 +42,24 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "dpshelio",
+      "name": "David Pérez-Suárez",
+      "avatar_url": "https://avatars.githubusercontent.com/u/963242?v=4",
+      "profile": "http://dpshelio.github.io",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "sjavis",
+      "name": "Sam Avis",
+      "avatar_url": "https://avatars.githubusercontent.com/u/40611736?v=4",
+      "profile": "https://github.com/sjavis",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
