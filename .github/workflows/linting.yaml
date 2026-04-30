@@ -10,14 +10,17 @@ on:
 
 jobs:
   linting:
-    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    runs-on: ubuntu-slim
     steps:
       # yamllint disable-line rule:line-length
-      - uses: paddyroddy/.github/actions/linting@1d0c1c7ee84f9247bcc05de363808eda0d1243ea # v0
+      - uses: paddyroddy/.github/actions/linting@eb48d1b4b5da3058639e04491da5241ba931dae0 # v0
         with:
           pre-commit-config: ./.pre-commit-config.yaml
 
       # yamllint disable-line rule:line-length
-      - uses: paddyroddy/.github/actions/vale@1d0c1c7ee84f9247bcc05de363808eda0d1243ea # v0
+      - uses: paddyroddy/.github/actions/vale@eb48d1b4b5da3058639e04491da5241ba931dae0 # v0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
