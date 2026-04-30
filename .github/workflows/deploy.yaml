@@ -3,7 +3,7 @@ name: Deploy Quarto
 description: Deploy quarto website to GitHub Pages
 
 runs:
-  runs-on: ubuntu-slim 
+  runs-on: ubuntu-slim
   steps:
     - name: Checkout source
       uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4

@@ -1,6 +1,6 @@
 ---
 title: "Green Actions"
-format: 
+format:
     dashboard:
         nav-buttons: [github]
         github: https://github.com/green-actions
