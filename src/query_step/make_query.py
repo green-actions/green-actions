@@ -1,16 +1,19 @@
 import requests
 import csv
 
+import yaml
+import pathlib
+
 
 def get_github_token(secrets_file):
     ### Get github token from secrets file
-    github_token = ""
-    import yaml
-    from pathlib import Path
-    with Path(secrets_file).open() as f:
-        file_contents = yaml.safe_load(f)
-        if "github_token" in file_contents.keys():
-            return file_contents["github_token"]
+
+    with pathlib.Path(secrets_file).open() as f:
+        file_contents = yaml.safe_load(f) or {}
+        if github_token := file_contents.get("github_token"):
+            return github_token
+
+    raise ValueError(f"Missing required 'github_token' in secrets file: {secrets_file}")
 
 
 def get_auth_headers():
@@ -23,12 +26,12 @@ def get_auth_headers():
 def get_list_of_workflows(org: str, repo: str):
     ### Gets a list of workflows from the given repo
 
-
     url = f"https://api.github.com/repos/{org}/{repo}/actions/runs"
 
     kwargs = get_auth_headers()
 
     return requests.get(url, **kwargs)
+
 
 def get_one_workflow_info(org: str, repo: str, workflow_run: str):
     url = f"https://api.github.com/repos/{org}/{repo}/actions/runs/{workflow_run}"
@@ -36,10 +39,13 @@ def get_one_workflow_info(org: str, repo: str, workflow_run: str):
     kwargs = get_auth_headers()
     return requests.get(url, **kwargs)
 
+
 def get_workflow_runtime_info(org: str, repo: str, workflow_run: str):
     ### Extract the timing information from a single workflow
 
-    url = f"https://api.github.com/repos/{org}/{repo}/actions/runs/{workflow_run}/timing"
+    url = (
+        f"https://api.github.com/repos/{org}/{repo}/actions/runs/{workflow_run}/timing"
+    )
 
     kwargs = get_auth_headers()
 
