@@ -1,0 +1,89 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "paddyroddy",
+      "name": "Patrick J. Roddy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15052188?v=4",
+      "profile": "https://paddyroddy.github.io",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "dleggat",
+      "name": "Duncan Leggat",
+      "avatar_url": "https://avatars.githubusercontent.com/u/133978460?v=4",
+      "profile": "https://github.com/dleggat",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "20DM",
+      "name": "Christian Gutschow",
+      "avatar_url": "https://avatars.githubusercontent.com/u/64213771?v=4",
+      "profile": "https://github.com/20DM",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "cstawitz",
+      "name": "Christine Stawitz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7132710?v=4",
+      "profile": "https://github.com/cstawitz",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "jyoti-bhogal",
+      "name": "Jyoti Bhogal",
+      "avatar_url": "https://avatars.githubusercontent.com/u/68017009?v=4",
+      "profile": "https://github.com/jyoti-bhogal",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "jeremyestein",
+      "name": "Jeremy Stein",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5707853?v=4",
+      "profile": "https://github.com/jeremyestein",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "dpshelio",
+      "name": "David Pérez-Suárez",
+      "avatar_url": "https://avatars.githubusercontent.com/u/963242?v=4",
+      "profile": "http://dpshelio.github.io",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "sjavis",
+      "name": "Sam Avis",
+      "avatar_url": "https://avatars.githubusercontent.com/u/40611736?v=4",
+      "profile": "https://github.com/sjavis",
+      "contributions": [
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "green-actions",
+  "projectOwner": "green-actions"
+}
