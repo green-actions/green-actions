@@ -10,13 +10,12 @@ def get_github_token(secrets_file):
 
     with pathlib.Path(secrets_file).open() as f:
         file_contents = yaml.safe_load(f) or {}
-        github_token = file_contents.get("github_token")
-        if github_token:
+        if github_token := file_contents.get("github_token"):
             return github_token
 
-    raise ValueError(
-        f"Missing required 'github_token' in secrets file: {secrets_file}"
-    )
+    raise ValueError(f"Missing required 'github_token' in secrets file: {secrets_file}")
+
+
 def get_auth_headers():
     ### Get the authorisation headers required for GitHub access
 
