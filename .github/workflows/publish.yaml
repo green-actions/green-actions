@@ -34,6 +34,14 @@ jobs:
         with:
           cache-version: 1
           working-directory: dashboard
+      
+      - name: Render ${{ github.ref_name }} branch
+        if: github.ref != 'refs/heads/main'
+        # yamllint disable-line rule:line-length
+        uses: quarto-dev/quarto-actions/render@8a96df13519ee81fd526f2dfca5962811136661b # v2
+        with:
+          to: html
+          path: dashboard
 
       - name: Publish main branch
         if: github.ref == 'refs/heads/main'
