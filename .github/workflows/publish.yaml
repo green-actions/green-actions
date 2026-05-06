@@ -34,7 +34,7 @@ jobs:
         with:
           cache-version: 1
           working-directory: dashboard
-      
+
       - name: Render ${{ github.ref_name }} branch
         if: github.ref != 'refs/heads/main'
         # yamllint disable-line rule:line-length
