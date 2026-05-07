@@ -80,7 +80,7 @@ list(
 
 ```{r}
 #| title: Run duration for different branches
-#| fig-width: 18
+#| fig-width: 15
 #| fig-height: 12
 #| out-width: "100%"
 #| fig-responsive: true
