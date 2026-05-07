@@ -41,7 +41,7 @@ p_thirdblock <- "primary"
 
 ```
 
-## Row {height="50%"}
+## Row {height="30%"}
 
 ```{r}
 #| content: valuebox
@@ -76,7 +76,7 @@ list(
 )
 ```
 
-## Row {height="80%"}
+## Row {height="100%"}
 
 ```{r}
 #| title: Run duration for different branches
