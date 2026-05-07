@@ -23,6 +23,25 @@ using their shared computer, whether or not they are students?
 to check that only top
 1000 words have been used.)
 
+## How to use it
+
+This repository has two components, a data query and data visualiser.
+
+To us it you'll need to clone the repository, have python and a token (if the
+repository to analyse is private, the token will need to be associated with that
+repository).
+
+```bash
+python src/query_step/make_query.py
+```
+
+At the moment this will analyse this same repository.
+
+In the future, we will add the possibility to add the functionality to include
+new repositories.
+
+The visualisation will automatically happen on GitHub pages when the data is updated.
+
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
