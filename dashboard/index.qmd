@@ -41,7 +41,7 @@ p_thirdblock <- "primary"
 
 ```
 
-## Row {height="50%"}
+## Row {height="30%"}
 
 ```{r}
 #| content: valuebox
@@ -76,9 +76,14 @@ list(
 )
 ```
 
-## Row {height="80%"}
+## Row {height="100%"}
 
 ```{r}
+#| title: Run duration for different branches
+#| fig-width: 15
+#| fig-height: 12
+#| out-width: "100%"
+#| fig-responsive: true
 # Put in the bubbleplot
 
 workflow_start_time <- as.POSIXct(actions_data$workflow_start_time, format = "%H:%M:%S")
