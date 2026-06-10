@@ -5,3 +5,6 @@
 .github/styles/config/*
 .github/styles/config/vocabularies/*
 .Rproj.user
+
+/.quarto/
+**/*.quarto_ipynb

@@ -10,6 +10,9 @@ theme: minty
 ```{r setup, include = FALSE}
 library(dplyr)
 library(ggplot2)
+library(bslib)
+library(bsicons)
+library(purrr)
 ```
 
 ```{r}
@@ -19,25 +22,52 @@ library(ggplot2)
 
 ### Read in data here
 actions_data <- read.csv("../data/green-actions-workflows.csv")
+
+duration_quant <- as.numeric(quantile(actions_data$duration))
 ```
 
 ```{r}
 #| label: calculate statistics
 #| message: false
 
-mean_duration <- mean(actions_data$duration)
-duration_quant <- as.numeric(quantile(actions_data$duration))
-branches <- unique(actions_data$branch)
+get_colour <- function(time_df) {
 
-branch_first <- actions_data |>
-    filter(branch==branches[1])
-branch_second <- actions_data |>
-    filter(branch==branches[2])
-branch_third <- actions_data |>
-    filter(branch==branches[3])
-p_firstblock <- "warning"
-p_secondblock <- "danger"
-p_thirdblock <- "primary"
+  ## Get quantiles of the data
+  p_firstblock <- "primary"
+  p_secondblock <- "warning"
+  p_thirdblock <- "danger"
+
+  color <- mutate(time_df, color = case_when(
+    time_df$duration <= duration_quant[2] ~ p_firstblock,
+    (time_df$duration > duration_quant[3]) & (time_df$duration <= duration_quant[4]) ~ p_secondblock,
+    time_df$duration > duration_quant[4] ~ p_thirdblock))
+  return(color)
+}
+
+# Group by branch and calculate summary statistics for each branch, then assign a colour based on the duration
+workflow_duration <- actions_data |> 
+  group_by(workflow_name) |>
+  summarise(duration = mean(duration), n = n()) |>
+  get_colour()
+
+# Filter to workflows with multiple runs for comparison
+workflows_run_multiple <- filter(workflow_duration, n>1)
+
+actions_to_summarise <- actions_data |> 
+  filter(workflow_name %in% workflows_run_multiple$workflow_name) 
+  
+model_summary <- actions_to_summarise  |> 
+  split(actions_to_summarise$workflow_name) |> 
+  purrr::map(get_colour) |> 
+   purrr::map(mutate, start_time = as.POSIXct(start_time, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")) |>
+  purrr::map(arrange, start_time)
+
+model_summary |>
+  lapply(function(df) lm(duration ~ start_time, data = df))
+
+
+  summary()
+  purrr::map(grep("start_time",dimnames(coef(.))[[1]]))
 
 ```
 
@@ -45,11 +75,12 @@ p_thirdblock <- "primary"
 
 ```{r}
 #| content: valuebox
-#| title: "Total time"
+#| title: "Time for main branch"
+
 list(
   icon = "clock",
-  color = p_firstblock,
-  value = duration_quant[3]
+  color = branch_duration[branch_duration$branch=="main", ]$color,
+  value = branch_duration[branch_duration$branch=="main",]$duration
 )
 
 ```
@@ -57,22 +88,22 @@ list(
 
 ```{r}
 #| content: valuebox
-#| title: "Time for branch X"
+#| title: "Time for prek branch"
 list(
-  icon = "clock",
-  color = p_secondblock,
-  value = duration_quant[4]
+  icon = "clock",  
+  color = branch_duration[branch_duration$branch=="prek", ]$color,
+  value = branch_duration[branch_duration$branch=="prek",]$duration
 )
 
 ```
 
 ```{r}
 #| content: valuebox
-#| title: "Time for branch Y"
+#| title: "Time for github-action branch"
 list(
   icon = "clock",
-  color = p_thirdblock,
-  value = duration_quant[1]
+  color = branch_duration[branch_duration$branch=="github-action",]$color,
+  value = branch_duration[branch_duration$branch=="github-action",]$duration
 )
 ```
 
@@ -88,7 +119,12 @@ list(
 
 workflow_start_time <- as.POSIXct(actions_data$workflow_start_time, format = "%H:%M:%S")
 
-p <- ggplot2::ggplot(actions_data) + ggplot2::geom_point(aes(x = start_time, y = workflow_name, size = duration, color = branch)) + xlab("Workflow start time") + ylab("Workflow name") + ggtitle("Run duration: workflow name against timestamp for different branches")+theme(axis.text.x = element_text(angle = 90))
+p <- ggplot2::ggplot(actions_data) + 
+  ggplot2::geom_point(aes(x = start_time, y = workflow_name, size = duration, color = branch)) + 
+  xlab("Workflow start time") + 
+  ylab("Workflow name") + 
+  ggtitle("Run duration: workflow name against timestamp for different branches") + 
+  theme(axis.text.x = element_text(angle = 90))
 
 p
 ```
