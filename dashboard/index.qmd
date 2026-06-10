@@ -10,8 +10,6 @@ theme: minty
 ```{r setup, include = FALSE}
 library(dplyr)
 library(ggplot2)
-library(bslib)
-library(bsicons)
 library(purrr)
 ```
 
@@ -35,12 +33,14 @@ get_colour <- function(time_df) {
   ## Get quantiles of the data
   p_firstblock <- "primary"
   p_secondblock <- "warning"
-  p_thirdblock <- "danger"
+  p_thirdblock <- "secondary"
+  p_fourthblock <- "danger"
 
   color <- mutate(time_df, color = case_when(
     time_df$duration <= duration_quant[2] ~ p_firstblock,
-    (time_df$duration > duration_quant[3]) & (time_df$duration <= duration_quant[4]) ~ p_secondblock,
-    time_df$duration > duration_quant[4] ~ p_thirdblock))
+    (time_df$duration > duration_quant[2]) & (time_df$duration <= duration_quant[3]) ~ p_secondblock,
+    (time_df$duration > duration_quant[3]) & (time_df$duration <= duration_quant[4]) ~ p_thirdblock,
+    time_df$duration > duration_quant[4] ~ p_fourthblock))
   return(color)
 }
 
@@ -55,19 +55,18 @@ workflows_run_multiple <- filter(workflow_duration, n>1)
 
 actions_to_summarise <- actions_data |> 
   filter(workflow_name %in% workflows_run_multiple$workflow_name) 
-  
+
+## Get the colour for each workflow and arrange by start time
 model_summary <- actions_to_summarise  |> 
   split(actions_to_summarise$workflow_name) |> 
   purrr::map(get_colour) |> 
-   purrr::map(mutate, start_time = as.POSIXct(start_time, format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")) |>
-  purrr::map(arrange, start_time)
+  purrr::map(arrange, start_time) |>
+  purrr::map(mutate, order_col = row_number())
 
-model_summary |>
-  lapply(function(df) lm(duration ~ start_time, data = df))
-
-
-  summary()
-  purrr::map(grep("start_time",dimnames(coef(.))[[1]]))
+# Fit a linear model to the start time to identify if the timing of the actions is 
+# increasing or decreasing over time. 
+coef_by_workflow <- model_summary |>
+  lapply(function(df) lm(duration ~ order_col, data = df)) |> lapply(coef)
 
 ```
 
@@ -75,12 +74,12 @@ model_summary |>
 
 ```{r}
 #| content: valuebox
-#| title: "Time for main branch"
-
+#| title: "Time for Linting workflow"
+arrow_icon <- unname(ifelse(coef_by_workflow$Linting[2]<0, "arrow-down", "arrow-up"))
 list(
-  icon = "clock",
-  color = branch_duration[branch_duration$branch=="main", ]$color,
-  value = branch_duration[branch_duration$branch=="main",]$duration
+  icon = arrow_icon,
+  color = model_summary$Linting$color[nrow(model_summary$Linting)],
+  value = model_summary$Linting$duration[nrow(model_summary$Linting)]
 )
 
 ```
@@ -88,22 +87,26 @@ list(
 
 ```{r}
 #| content: valuebox
-#| title: "Time for prek branch"
+#| title: "Time for Links workflow"
+
+
+arrow_icon <- unname(ifelse(coef_by_workflow$Links[2]<0, "arrow-down", "arrow-up"))
 list(
-  icon = "clock",  
-  color = branch_duration[branch_duration$branch=="prek", ]$color,
-  value = branch_duration[branch_duration$branch=="prek",]$duration
+  icon = arrow_icon,
+  color = model_summary$Links$color[nrow(model_summary$Links)],
+  value = model_summary$Links$duration[nrow(model_summary$Links)]
 )
 
 ```
 
 ```{r}
 #| content: valuebox
-#| title: "Time for github-action branch"
+#| title: "Time for Copilot code review workflow"
+arrow_icon <- ifelse(coef_by_workflow$`Copilot code review`[2]<0, "arrow-down", "arrow-up")
 list(
-  icon = "clock",
-  color = branch_duration[branch_duration$branch=="github-action",]$color,
-  value = branch_duration[branch_duration$branch=="github-action",]$duration
+  icon = unname(arrow_icon),
+  color = model_summary$`Copilot code review`$color[nrow(model_summary$`Copilot code review`)],
+  value = model_summary$`Copilot code review`$duration[nrow(model_summary$`Copilot code review`)]
 )
 ```
 
@@ -124,7 +127,7 @@ p <- ggplot2::ggplot(actions_data) +
   xlab("Workflow start time") + 
   ylab("Workflow name") + 
   ggtitle("Run duration: workflow name against timestamp for different branches") + 
-  theme(axis.text.x = element_text(angle = 90))
+  theme_bw() + theme(axis.text.x = element_text(angle = 90))
 
 p
 ```
