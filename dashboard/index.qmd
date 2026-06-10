@@ -45,7 +45,7 @@ get_colour <- function(time_df) {
 }
 
 # Group by branch and calculate summary statistics for each branch, then assign a colour based on the duration
-workflow_duration <- actions_data |> 
+workflow_duration <- actions_data |>
   group_by(workflow_name) |>
   summarise(duration = mean(duration), n = n()) |>
   get_colour()
@@ -53,18 +53,18 @@ workflow_duration <- actions_data |>
 # Filter to workflows with multiple runs for comparison
 workflows_run_multiple <- filter(workflow_duration, n>1)
 
-actions_to_summarise <- actions_data |> 
-  filter(workflow_name %in% workflows_run_multiple$workflow_name) 
+actions_to_summarise <- actions_data |>
+  filter(workflow_name %in% workflows_run_multiple$workflow_name)
 
 ## Get the colour for each workflow and arrange by start time
-model_summary <- actions_to_summarise  |> 
-  split(actions_to_summarise$workflow_name) |> 
-  purrr::map(get_colour) |> 
+model_summary <- actions_to_summarise  |>
+  split(actions_to_summarise$workflow_name) |>
+  purrr::map(get_colour) |>
   purrr::map(arrange, start_time) |>
   purrr::map(mutate, order_col = row_number())
 
-# Fit a linear model to the start time to identify if the timing of the actions is 
-# increasing or decreasing over time. 
+# Fit a linear model to the start time to identify if the timing of the actions is
+# increasing or decreasing over time.
 coef_by_workflow <- model_summary |>
   lapply(function(df) lm(duration ~ order_col, data = df)) |> lapply(coef)
 
@@ -122,11 +122,11 @@ list(
 
 workflow_start_time <- as.POSIXct(actions_data$workflow_start_time, format = "%H:%M:%S")
 
-p <- ggplot2::ggplot(actions_data) + 
-  ggplot2::geom_point(aes(x = start_time, y = workflow_name, size = duration, color = branch)) + 
-  xlab("Workflow start time") + 
-  ylab("Workflow name") + 
-  ggtitle("Run duration: workflow name against timestamp for different branches") + 
+p <- ggplot2::ggplot(actions_data) +
+  ggplot2::geom_point(aes(x = start_time, y = workflow_name, size = duration, color = branch)) +
+  xlab("Workflow start time") +
+  ylab("Workflow name") +
+  ggtitle("Run duration: workflow name against timestamp for different branches") +
   theme_bw() + theme(axis.text.x = element_text(angle = 90))
 
 p
